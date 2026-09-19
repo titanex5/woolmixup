@@ -23,17 +23,24 @@ jobs:
         with:
           gradle-version: 'current'
 
-      - name: Debug - pokaz strukture repo
+      - name: Znajdz folder z projektem Gradle
+        id: find_project
         run: |
-          echo "GITHUB_WORKSPACE = $GITHUB_WORKSPACE"
-          pwd
-          find . -maxdepth 3 -not -path '*/.git*'
+          DIR=$(dirname "$(find . -name 'settings.gradle.kts' -not -path '*/.git/*' | head -n 1)")
+          if [ -z "$DIR" ]; then
+            echo "Nie znaleziono settings.gradle.kts w repo!"
+            find . -maxdepth 4 -not -path '*/.git*'
+            exit 1
+          fi
+          echo "Znaleziono projekt w: $DIR"
+          echo "project_dir=$DIR" >> "$GITHUB_OUTPUT"
 
       - name: Zbuduj (gradle jar)
+        working-directory: ${{ steps.find_project.outputs.project_dir }}
         run: gradle jar --no-daemon
 
       - name: Wystaw jar jako artefakt do pobrania
         uses: actions/upload-artifact@v4
         with:
           name: WoolMixUp-jar
-          path: build/libs/WoolMixUp-*.jar
+          path: ${{ steps.find_project.outputs.project_dir }}/build/libs/WoolMixUp-*.jar
