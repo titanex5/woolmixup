@@ -1,0 +1,42 @@
+# === WoolMixUp - konfiguracja ===
+
+game:
+  # Ile sekund ma gracz na pierwsza runde.
+  base-time-seconds: 5.0
+
+  # Minimalny czas rundy. 0.05 s = 1 tick Minecrafta (50 ms).
+  # Bukkit/Spigot dziala tickowo, wiec 20 ms nie jest mozliwe jako pewny timer rundy.
+  min-time-seconds: 0.05
+
+  # O ile sekund skraca sie czas kazdej kolejnej rundy.
+  time-decrease-per-round: 0.15
+
+  # Krotka przerwa (sekundy) miedzy rundami, zeby gracz zdazyl zobaczyc nowy kolor
+  # i plansza zdazyla sie zregenerowac, zanim odliczanie ruszy na dobre.
+  countdown-before-round-seconds: 1.2
+
+  # Ile bloczkow ponizej poziomu podlogi uznajemy juz za "spadniecie" (koniec gry).
+  # 1 = koniec gry, gdy gracz dotknie poziomu o jeden blok ponizej podlogi.
+  fall-threshold-blocks: 1
+
+  # Rozmiar boku pojedynczego "kafla" koloru (blokow x blokow). Domyslnie 3
+  # oznacza, ze kazdy kolor zajmuje kwadrat 3x3, a nie pojedynczy blok - latwiej
+  # dostrzec i dobiec, plansza wyglada bardziej jak w oryginalnej minigrze.
+  cell-size: 3
+
+  # Pula kolorow welny uzywanych w grze. Mozesz dodac/usunac kolory z listy
+  # ponizej (nazwy materialow Bukkit bez sufiksu _WOOL).
+  colors:
+    - WHITE
+    - ORANGE
+    - MAGENTA
+    - LIGHT_BLUE
+    - YELLOW
+    - LIME
+    - PINK
+    - CYAN
+    - PURPLE
+    - RED
+
+settings:
+  debug: false
